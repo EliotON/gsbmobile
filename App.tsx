@@ -60,12 +60,12 @@ export default function App() {
           <Stack.Screen name="Login" options={{ headerShown: false }}>
             {() => (
               <View className="flex-1 bg-white">
-                <View className="flex-1">
+                <View className="flex-1 ">
                   <LinearGradient
                     colors={['#3B82F6', '#2563EB']}
-                    className="px-8 py-10 rounded-b-3xl shadow-lg"
+                    className="px-8 pt-16 pb-10 rounded-b-3xl shadow-lg"
                   >
-                    <View className="items-center mb-6">
+                    <View className="items-center mt-28">
                       <View className="shadow-lg rounded-full">
                         <Image 
                           source={require('./public/logo.png')}
@@ -78,14 +78,14 @@ export default function App() {
                       Connexion GSB
                     </Text>
                     <Text className="text-center text-blue-100 mb-6">
-                      Espace réservé aux médecins
+                      Espace réservé aux visiteurs
                     </Text>
                   </LinearGradient>
 
                   <View className="px-8 pt-8">
                     <View className="space-y-4 w-full">
                       <TextInput
-                        className="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 text-gray-900"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 text-gray-900 mb-4"
                         placeholder="Email"
                         value={email}
                         onChangeText={setEmail}
@@ -93,7 +93,7 @@ export default function App() {
                         placeholderTextColor="#9CA3AF"
                       />
                       <TextInput
-                        className="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 text-gray-900"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 text-gray-900 mb-4"
                         placeholder="Mot de passe"
                         value={password}
                         onChangeText={setPassword}
@@ -118,45 +118,70 @@ export default function App() {
           <>
             <Stack.Screen name="Home" options={{ headerShown: false }}>
               {({ navigation }) => (
-                <View className="flex-1 bg-white dark:bg-gray-900">
-                  <View className="flex-1 p-8">
-                    <Image 
-                      source={require('./public/logo.png')}
-                      className="w-24 h-24 self-center mb-8"
-                      resizeMode="contain"
-                    />
-                    <Text className="text-3xl font-bold text-gray-800 dark:text-white text-center mb-8">
+                <View className="flex-1 bg-white mb-10">
+                  <LinearGradient
+                    colors={['#3B82F6', '#2563EB']}
+                    className="px-8 pt-16 pb-10 rounded-b-3xl shadow-lg"
+                  >
+                    <View className="items-center mt-28">
+                      <View className="shadow-lg rounded-full">
+                        <Image 
+                          source={require('./public/logo.png')}
+                          className="h-20 w-20 rounded-full border-4 border-white"
+                          resizeMode="cover"
+                        />
+                      </View>
+                    </View>
+                    <Text className="text-3xl font-bold text-center text-white mb-2">
                       Tableau de bord
                     </Text>
-                    <View className="space-y-4">
+                    <Text className="text-center text-blue-100 mb-2">
+                      Bienvenue sur votre espace GSB
+                    </Text>
+                  </LinearGradient>
+
+                  <View className="px-8 pt-8 flex-1">
+                    <Text className="text-xl font-semibold text-gray-700 mb-6">
+                      Que souhaitez-vous faire ?
+                    </Text>
+                    <View className="space-y-5">
                       <TouchableOpacity 
-                        className="bg-blue-600 rounded-xl p-4 flex-row items-center"
+                        className="bg-white rounded-xl p-5 flex-row items-center shadow-md border border-gray-100 mb-4"
                         onPress={() => navigation.navigate('Visits')}
                       >
-                        <View className="bg-blue-500 p-2 rounded-lg mr-4">
+                        <View className="bg-blue-500 p-3 rounded-lg mr-4">
                           <FontAwesome5 name="clipboard-list" size={24} color="white" />
                         </View>
-                        <Text className="text-white text-lg font-semibold">Voir les visites</Text>
+                        <View>
+                          <Text className="text-gray-800 text-lg font-semibold">Voir les visites</Text>
+                          <Text className="text-gray-500">Consultez votre historique</Text>
+                        </View>
                       </TouchableOpacity>
                       
                       <TouchableOpacity 
-                        className="bg-green-600 rounded-xl p-4 flex-row items-center"
+                        className="bg-white rounded-xl p-5 flex-row items-center shadow-md border border-gray-100 mb-4"
                         onPress={() => navigation.navigate('AddVisit')}
                       >
-                        <View className="bg-green-500 p-2 rounded-lg mr-4">
+                        <View className="bg-green-500 p-3 rounded-lg mr-4">
                           <Ionicons name="add-circle" size={24} color="white" />
                         </View>
-                        <Text className="text-white text-lg font-semibold">Ajouter une visite</Text>
+                        <View>
+                          <Text className="text-gray-800 text-lg font-semibold">Ajouter une visite</Text>
+                          <Text className="text-gray-500">Enregistrer une nouvelle visite</Text>
+                        </View>
                       </TouchableOpacity>
                       
                       <TouchableOpacity 
-                        className="bg-red-600 rounded-xl p-4 flex-row items-center"
+                        className="bg-white rounded-xl p-5 flex-row items-center shadow-md border border-gray-100 mb-4"
                         onPress={handleLogout}
                       >
-                        <View className="bg-red-500 p-2 rounded-lg mr-4">
+                        <View className="bg-red-500 p-3 rounded-lg mr-4">
                           <MaterialIcons name="logout" size={24} color="white" />
                         </View>
-                        <Text className="text-white text-lg font-semibold">Se déconnecter</Text>
+                        <View>
+                          <Text className="text-gray-800 text-lg font-semibold">Se déconnecter</Text>
+                          <Text className="text-gray-500">Quitter votre session</Text>
+                        </View>
                       </TouchableOpacity>
                     </View>
                   </View>

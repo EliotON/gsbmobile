@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, Alert, StyleSheet, ActivityIndicator, Switch } from 'react-native';
+import { View, Text, TextInput, Button, Alert, StyleSheet, ActivityIndicator, Switch, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Ionicons } from '@expo/vector-icons';
 
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -27,7 +30,8 @@ function decodeJWT(token: string) {
 export default function AddVisitPage({ navigation }: { navigation: AddVisitPageNavigationProp }) {
   const [medecins, setMedecins] = useState<{ id_medecin: string; nom: string; prenom: string }[]>([]);
   const [selectedMedecin, setSelectedMedecin] = useState('1'); // Default value
-  const [dateVisite, setDateVisite] = useState('2023-01-01'); // Default value
+  const [dateVisite, setDateVisite] = useState('2025-01-01'); // Default value
+  const [showDatePicker, setShowDatePicker] = useState(false); // New state
   const [heureArrivee, setHeureArrivee] = useState('09:00:00'); // Default value
   const [heureDebutEntretien, setHeureDebutEntretien] = useState('09:15:00'); // Default value
   const [tempsAttente, setTempsAttente] = useState('15'); // Default value
@@ -125,11 +129,15 @@ export default function AddVisitPage({ navigation }: { navigation: AddVisitPageN
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Ajouter une visite</Text>
+      <View style={{ paddingVertical: 16 }}>
+        <Text style={{ fontSize: 28, fontWeight: 'bold', color: '#1f2937' }}>
+          Ajouter une visite:
+        </Text>
+      </View>
       <Text style={styles.label}>Médecin</Text>
       <Picker
         selectedValue={selectedMedecin}
-        onValueChange={(itemValue: string) => setSelectedMedecin(itemValue)}
+        onValueChange={(itemValue: string) => setSelectedMedecin(String(itemValue))}
         style={styles.picker}
       >
         <Picker.Item label="Sélectionnez un médecin" value="" />
@@ -137,16 +145,29 @@ export default function AddVisitPage({ navigation }: { navigation: AddVisitPageN
           <Picker.Item
             key={medecin.id_medecin}
             label={`${medecin.nom} ${medecin.prenom}`}
-            value={medecin.id_medecin}
+            value={String(medecin.id_medecin)}  // Force the value to be a string
           />
         ))}
       </Picker>
-      <TextInput
-        style={styles.input}
-        placeholder="Date de visite (YYYY-MM-DD)"
-        value={dateVisite}
-        onChangeText={setDateVisite}
-      />
+      <TouchableOpacity style={styles.input} onPress={() => setShowDatePicker(true)}>
+        <Text style={{ color: dateVisite ? '#111827' : '#9CA3AF' }}>
+          {dateVisite || "Sélectionnez la date (YYYY-MM-DD)"}
+        </Text>
+      </TouchableOpacity>
+      {showDatePicker && (
+        <DateTimePicker
+          value={new Date(dateVisite)}
+          mode="date"
+          display="default"
+          onChange={(event, selectedDate) => {
+            setShowDatePicker(false);
+            if (selectedDate) {
+              const formatted = selectedDate.toISOString().split('T')[0];
+              setDateVisite(formatted);
+            }
+          }}
+        />
+      )}
       <TextInput
         style={styles.input}
         placeholder="Heure d'arrivée (HH:MM:SS)"
