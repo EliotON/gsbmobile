@@ -1,0 +1,9 @@
+# This is private data. Do not parse
+PRIORITY=30
+LEVEL_PREFIX=1
+FORWARD_TO_SYSLOG=0
+FORWARD_TO_KMSG=0
+FORWARD_TO_CONSOLE=0
+STREAM_ID=ffb65d97cd9e41f3b19644d03a91a1d5
+IDENTIFIER=code-server
+UNIT=code-server@root.service
