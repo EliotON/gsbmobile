@@ -3,8 +3,6 @@ import { View, Text, TextInput, Button, Alert, StyleSheet, ActivityIndicator, Sw
 import { Picker } from '@react-native-picker/picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { LinearGradient } from 'expo-linear-gradient';
-import { Ionicons } from '@expo/vector-icons';
 
 import { StackNavigationProp } from '@react-navigation/stack';
 
